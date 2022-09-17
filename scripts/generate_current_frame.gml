@@ -36,15 +36,15 @@
 		}
 		frame_playsound_channel[numb] = ini_read_string(string(currentframe), "frame_playsound_channel" + string(numb), "")
 		frame_loopsound_channel[numb] = ini_read_real(string(currentframe), "frame_loopsound_channel" + string(numb), 0)
-		if (file_exists("" + frame_playsound_channel[numb]) && !audio_is_playing(Channel[numb])) 
+		if (file_exists(frame_playsound_channel[numb]) && !audio_is_playing(Channel[numb])) 
 		{ 
 			if (audio_exists(Channel[numb])) 
 			{ 
 				audio_destroy_stream(Channel[numb]) 
 			} 
-			Channel[numb] = audio_create_stream("" + frame_playsound_channel[numb]) 
+			Channel[numb] = audio_create_stream(frame_playsound_channel[numb]) 
 		}
-		if (Channel[numb] != Channelb[numb] && file_exists("" + frame_playsound_channel[numb]) && !audio_is_playing(Channel[numb])) { 
+		if (Channel[numb] != Channelb[numb] && file_exists(frame_playsound_channel[numb]) && !audio_is_playing(Channel[numb])) { 
 			if (frame_loopsound_channel[numb] = 1) then audio_play_sound(Channel[numb], 0, 1) else audio_play_sound(Channel[numb], 0, 0) 
 		}
 	}
@@ -89,15 +89,15 @@
 			}
 			hotspot_playsound_channel[i, numb] = ini_read_string(currentframe + string("-hotspot") + string(i), "hotspot_playsound_channel" + string(numb), "")
 			hotspot_loopsound_channel[i, numb] = ini_read_real(string(currentframe) + string("-hotspot") + string(i), "hotspot_loopsound_channel" + string(numb), 0)
-			if (file_exists("" + hotspot_playsound_channel[i, numb]) && !audio_is_playing(Channel[numb])) 
+			if (file_exists(hotspot_playsound_channel[i, numb]) && !audio_is_playing(Channel[numb])) 
 			{ 
 				if (audio_exists(Channel[numb])) 
 				{ 
 					audio_destroy_stream(Channel[numb]) 
 				} 
-				Channel[numb] = audio_create_stream("" + hotspot_playsound_channel[i, numb]) 
+				Channel[numb] = audio_create_stream(hotspot_playsound_channel[i, numb]) 
 			}
-			if (Channel[numb] != Channelb[numb] && file_exists("" + hotspot_playsound_channel[i, numb]) && !audio_is_playing(Channel[numb])) 
+			if (Channel[numb] != Channelb[numb] && file_exists(hotspot_playsound_channel[i, numb]) && !audio_is_playing(Channel[numb])) 
 			{ 
 				if (hotspot_loopsound_channel[i, numb] = 1) 
 				{
@@ -142,9 +142,9 @@
 	{
 		sprite_delete(Transparent)
 	}
-	if (file_exists("" + string(currentframe)))
+	if (file_exists(string(currentframe)))
 	{
-		Transparent = sprite_add("" + string(currentframe), frame_background_imgnumb, 0, 0, 0, 0)
+		Transparent = sprite_add(string(currentframe), frame_background_imgnumb, 0, 0, 0, 0)
 		ImageWidth = sprite_get_width(Transparent)
 		ImageHeight = sprite_get_height(Transparent)
 		sprite_index = Transparent
