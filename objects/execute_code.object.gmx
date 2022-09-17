@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object>
+  <spriteName>&lt;undefined&gt;</spriteName>
+  <solid>0</solid>
+  <visible>-1</visible>
+  <depth>0</depth>
+  <persistent>0</persistent>
+  <maskName>&lt;undefined&gt;</maskName>
+  <parentName>&lt;undefined&gt;</parentName>
+  <events>
+    <event enumb="0" eventtype="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>d3d_start()&#13;
+Transparent = -1&#13;
+Channelb[0] = -1&#13;
+Channelb[1] = -1&#13;
+Channelb[2] = -1&#13;
+Channelb[3] = -1&#13;
+Channelb[4] = -1&#13;
+Channelb[5] = -1&#13;
+Channelb[6] = -1&#13;
+Channelb[7] = -1&#13;
+Channelb[8] = -1&#13;
+Channelb[9] = -1&#13;
+for (numb = 0; numb &lt; 9; numb += 1)&#13;
+{&#13;
+	Channel[numb] = Channelb[numb]&#13;
+}&#13;
+ImageLoaded = 0&#13;
+currenttime = 0&#13;
+hotspots_activate = 1&#13;
+inittrans = 0&#13;
+transdur2 = 0&#13;
+transition = -1&#13;
+transition_create = 0&#13;
+draw_transition = 0&#13;
+transition_alpha = 0&#13;
+direction = 180&#13;
+enablepanoramamode = 0&#13;
+frame_haspanoramaprojection = 0&#13;
+frame_maxhotspotcount = 0&#13;
+over_hotspot = 0&#13;
+over_counter = 0&#13;
+over_counter2 = 0&#13;
+mousex = window_mouse_get_x()&#13;
+mousey = window_mouse_get_y()&#13;
+createtimedevent = 0&#13;
+frame_hastimedevent = 0&#13;
+gotoframe1 = 0&#13;
+gotoframe2 = 0&#13;
+frame = 0&#13;
+currentframe = 0&#13;
+zdirection = 0&#13;
+z = 0&#13;
+nextcheck = 0&#13;
+enableclick = 1&#13;
+image_speed = 0.25&#13;
+gametitle = 0&#13;
+windowwidth = display_get_width()&#13;
+windowheight = display_get_height()&#13;
+initwindow = 0&#13;
+mouse_lock_init()&#13;
+ini_open(working_directory + "/run.ini")&#13;
+gametitle = ini_read_string("gamesettings", "gametitle", "")&#13;
+startframe = ini_read_string("gamesettings", "startframe", "")&#13;
+debug_game = ini_read_real("gamesettings", "debug_game", 0)&#13;
+windowwidth = ini_read_real("gamesettings", "windowwidth", display_get_width())&#13;
+windowheight = ini_read_real("gamesettings", "windowheight", display_get_height())&#13;
+splashvideo = ini_read_string("gamesettings", "splashvideo", "")&#13;
+fullscreen = ini_read_real("gamesettings", "fullscreen", 0)&#13;
+initwindow = !fullscreen&#13;
+panoramaaspectratio = ini_read_real("gamesettings", "panorama_aspectratio", 1)&#13;
+maxglobalindex = 0&#13;
+while (ini_key_exists("gamesettings", "global_variable" + string(maxglobalindex)))&#13;
+{&#13;
+	global_variable[maxglobalindex] = ini_read_string("gamesettings", "global_variable" + string(maxglobalindex), "")&#13;
+	maxglobalindex += 1&#13;
+}&#13;
+currentframe = startframe&#13;
+previousframe = currentframe&#13;
+ini_close()&#13;
+window_set_caption(gametitle)&#13;
+window_set_fullscreen(fullscreen)&#13;
+if (fullscreen = 0)&#13;
+{&#13;
+	window_set_rectangle((display_get_width() / 2) - (windowwidth / 2), (display_get_height() / 2) - (windowheight / 2), windowwidth, windowheight)&#13;
+}&#13;
+generate_current_frame()&#13;
+for (i = 0; i &lt; frame_maxhotspotcount; i += 1)&#13;
+{&#13;
+	transdur1[i] = 0&#13;
+}&#13;
+calculate_direction()&#13;
+ini_open(working_directory + "/run.ini")&#13;
+direction = ini_read_real("gamesettings", "panorama_horizontaldirection", 180)&#13;
+zdirection = ini_read_real("gamesettings", "panorama_verticaldirection", 0) * MaximumVerticalAngle&#13;
+ini_close()&#13;
+for (i = 0; i &lt; 32000; i += 1)&#13;
+{&#13;
+	for (varindex = 0; varindex &lt; maxglobalindex; varindex += 1)&#13;
+	{&#13;
+		variable_set_value[i, varindex] = 0&#13;
+	}&#13;
+}</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="2" eventtype="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Get the texel coordinates of the current texel the camera is facing&#13;
+enablepanoramamode = frame_haspanoramaprojection&#13;
+if (enablepanoramamode = 1)&#13;
+{&#13;
+	if (draw_transition = 0)&#13;
+	{&#13;
+		direction -= mouse_get_delta_x() / 20&#13;
+		zdirection -= mouse_get_delta_y() / 20&#13;
+		calculate_direction()&#13;
+	}&#13;
+	if (mouse_is_locked() = 1)&#13;
+	{&#13;
+		if (mouse_check_button_pressed(mb_right))&#13;
+		{&#13;
+			mouse_unlock()&#13;
+		}&#13;
+	}&#13;
+	else {&#13;
+		if (mouse_check_button_pressed(mb_left))&#13;
+		{&#13;
+			window_set_cursor(cr_none)&#13;
+			mouse_lock()&#13;
+		}&#13;
+	}&#13;
+	if (mouse_is_locked() = 0)&#13;
+	{&#13;
+		if (window_get_cursor() = cr_none)&#13;
+		{&#13;
+			window_set_cursor(cr_default)&#13;
+		}&#13;
+	}&#13;
+}&#13;
+else if (enablepanoramamode = 0)&#13;
+{&#13;
+	if (mouse_is_locked() = 1)&#13;
+	{&#13;
+		mouse_unlock()&#13;
+	}&#13;
+	if (window_get_cursor() = cr_default)&#13;
+	{&#13;
+		window_set_cursor(cr_none)&#13;
+	}&#13;
+	if (window_get_fullscreen())&#13;
+	{&#13;
+		mousex = round(window_mouse_get_x() * (windowwidth / display_get_width()))&#13;
+		mousey = round(window_mouse_get_y() * (windowheight / display_get_height()))&#13;
+	}&#13;
+	else {&#13;
+		mousex = window_mouse_get_x()&#13;
+		mousey = window_mouse_get_y()&#13;
+	}&#13;
+}</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="1" eventtype="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>mouse_lock_update()</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="0" eventtype="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Create timed event&#13;
+if (draw_transition = 0)&#13;
+{&#13;
+	createtimedevent = frame_hastimedevent&#13;
+	if (createtimedevent = 1)&#13;
+	{&#13;
+		currenttime += 0.01&#13;
+		if (currenttime &gt;= frame_timedeventtotaltime)&#13;
+		{&#13;
+			gotoframe2 = frame_hastimedevent&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+//Go to a different frame (timed event)&#13;
+if (draw_transition = 0)&#13;
+{&#13;
+	if (gotoframe2 = 1)&#13;
+	{&#13;
+		if (currentframe != frame_timedeventdestinationframe)&#13;
+		{&#13;
+			hotspots_activate = 0&#13;
+			transition_create = 1&#13;
+			draw_transition = 1&#13;
+			if (enabletransition2 = 1)&#13;
+			{&#13;
+				transition_alpha = 1&#13;
+			} &#13;
+			else &#13;
+			{&#13;
+				transitionduration2 = 0&#13;
+				transition_alpha = 0&#13;
+			}&#13;
+			for (i = 0; i &lt; frame_maxhotspotcount; i += 1)&#13;
+			{&#13;
+				messageduration[i] = 0&#13;
+				showmessage[i] = 0&#13;
+			}&#13;
+			inittrans = 1&#13;
+			previousframe = currentframe&#13;
+			prevframe_maxhotspotcount = frame_maxhotspotcount&#13;
+			currentframe = frame_timedeventdestinationframe&#13;
+			currenttime = 0&#13;
+			gotoframe2 = 0&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+//Detect mouse hover over hotspot and if it is clicked&#13;
+if ((enablepanoramamode = 0 || mouse_is_locked() = 1) &amp;&amp; draw_transition = 0 &amp;&amp; ImageLoaded = 1 &amp;&amp; hotspots_activate = 1 &amp;&amp; enableclick = 1)&#13;
+{&#13;
+	for (i = 0; i &lt; frame_maxhotspotcount; i += 1)&#13;
+	{&#13;
+		for (globalindex = 0; globalindex &lt; maxglobalindex; globalindex += 1)&#13;
+		{&#13;
+			for (varindex = 0; varindex &lt; maxglobalindex; varindex += 1)&#13;
+			{&#13;
+				variable_enable_hotspot[i, varindex] = 0&#13;
+				if (variable_get[i, varindex] = 1)&#13;
+				{&#13;
+					if (global_variable[globalindex] = variable_name[i, varindex])&#13;
+					{&#13;
+						if (variable_get_value[i, varindex] = variable_set_value[i, varindex])&#13;
+						{&#13;
+							variable_enable_hotspot[i, varindex] = 1&#13;
+						}&#13;
+					}&#13;
+				}&#13;
+				if (variable_enable_hotspot[i, varindex] = 1 || variable_exists[i] = 0)&#13;
+				{&#13;
+					if (mousex &gt;= real(left[i]) &amp;&amp; mousey &gt;= real(top[i]) &amp;&amp; mousex &lt;= real(left[i]) + real(width[i]) &amp;&amp; mousey &lt;= real(top[i]) + real(height[i]))&#13;
+					{&#13;
+						over_counter += 1&#13;
+						over_hotspot = 1&#13;
+						over_counter2 += 1&#13;
+						if (mouse_check_button_pressed(mb_left))&#13;
+						{&#13;
+							clicked[i] = 1&#13;
+							if (variable_set[i, varindex] = 1)&#13;
+							{&#13;
+								ini_open(working_directory + "/run.ini")&#13;
+								variable_set_value[i, varindex] = ini_read_real(string(currentframe) + "-hotspot" + string(i) + "-variable" + string(varindex), "variable_set_value", 0)&#13;
+								ini_close()&#13;
+							}&#13;
+							if (gotoframe1[i] = 1)&#13;
+							{&#13;
+								if (currentframe != frame[i])&#13;
+								{&#13;
+									transition_create = 1&#13;
+									draw_transition = 1&#13;
+									if (enabletransition1[i] = 1)&#13;
+									{&#13;
+										transition_alpha = 1&#13;
+									}&#13;
+									else &#13;
+									{&#13;
+										transitionduration1[i] = 0&#13;
+										transition_alpha = 0&#13;
+									}&#13;
+									messageduration[i] = 0&#13;
+									showmessage[i] = 0&#13;
+									inittrans = 1&#13;
+									previousframe = currentframe&#13;
+									prevframe_maxhotspotcount = frame_maxhotspotcount&#13;
+									currentframe = frame[i]&#13;
+								}&#13;
+							}&#13;
+							else &#13;
+							{&#13;
+								ini_open(working_directory + "/run.ini")&#13;
+								showmessage[i] = ini_read_real(string(currentframe) + "-hotspot" + string(i), "hotspot_mustshowmessage", 0)&#13;
+								messageduration[i] = (string_length(messagetext[i]) * 0.075)&#13;
+								ini_close()&#13;
+							}&#13;
+							break&#13;
+						}&#13;
+						else &#13;
+						{ &#13;
+							clicked[i] = 0 &#13;
+						}&#13;
+						nextcheck = 1&#13;
+					}&#13;
+				}&#13;
+			}&#13;
+			&#13;
+		}&#13;
+		if (over_counter2 = 0)&#13;
+		{&#13;
+			if (over_counter &gt; 0)&#13;
+			{&#13;
+				over_counter = 0&#13;
+			}&#13;
+			over_hotspot = 0&#13;
+		}&#13;
+	}&#13;
+	over_counter2 = 0&#13;
+}&#13;
+&#13;
+&#13;
+//Transition Closing&#13;
+if (draw_transition = 1)&#13;
+{&#13;
+	image_speed = 0&#13;
+	if (hotspots_activate = 1)&#13;
+	{&#13;
+		if (inittrans = 1)&#13;
+		{&#13;
+			for (i = 0; i &lt; frame_maxhotspotcount; i += 1)&#13;
+			{&#13;
+				transdur1[i] = transitionduration1[i]&#13;
+			}&#13;
+			inittrans = 0&#13;
+		}&#13;
+		else&#13;
+		{&#13;
+			for (i = 0; i &lt; prevframe_maxhotspotcount; i += 1)&#13;
+			{&#13;
+				transition_alpha -= transdur1[i] / 100&#13;
+			}&#13;
+		}&#13;
+	}&#13;
+	if (hotspots_activate = 0)&#13;
+	{&#13;
+		if (inittrans = 1)&#13;
+		{&#13;
+			transdur2 = transitionduration2&#13;
+			inittrans = 0&#13;
+		}&#13;
+		else &#13;
+		{ &#13;
+			transition_alpha -= transdur2 * 0.01&#13;
+		}&#13;
+	}&#13;
+	if (transition_alpha &lt;= 0)&#13;
+	{&#13;
+		if (sprite_exists(transition))&#13;
+		{&#13;
+			sprite_delete(transition)&#13;
+			transition = -1&#13;
+		}&#13;
+		if (file_exists(working_directory + "/transition.png"))&#13;
+		{&#13;
+			file_delete(working_directory + "/transition.png")&#13;
+		}&#13;
+		draw_transition = 0&#13;
+		transition_alpha = 0&#13;
+		hotspots_activate = 1&#13;
+		for (i = 0; i &lt; prevframe_maxhotspotcount; i += 1)&#13;
+		{&#13;
+			transdur1[i] = 0&#13;
+		}&#13;
+		transdur2 = 0&#13;
+	}&#13;
+}&#13;
+else &#13;
+{ &#13;
+	image_speed = 0.25 &#13;
+}&#13;
+if (image_index &gt;= frame_background_imgnumb)&#13;
+{&#13;
+	image_index = 0&#13;
+}&#13;
+&#13;
+//Message closing&#13;
+if (nextcheck = 1)&#13;
+{&#13;
+	message_enabled = 0&#13;
+	for (i = 0; i &lt; frame_maxhotspotcount; i += 1)&#13;
+	{&#13;
+		if (showmessage[i] = 1)&#13;
+		{&#13;
+			messageduration[i] -= .01&#13;
+			if (window_mouse_get_x() &gt;= 0 &amp;&amp; window_mouse_get_x() &lt;= window_get_width()) &amp;&amp; &#13;
+			(window_mouse_get_y() &gt;= window_get_height() - (string_height(messagetext[i]) / 1.5) &amp;&amp;&#13;
+			window_mouse_get_y() &lt;= window_get_height())&#13;
+			{&#13;
+				enableclick = 0&#13;
+				if (mouse_check_button_pressed(mb_left))&#13;
+				{&#13;
+					showmessage[i] = 0&#13;
+					messageduration[i] = 0&#13;
+					nextcheck = 0&#13;
+					enableclick = 1&#13;
+					message_enabled = 0&#13;
+				}&#13;
+			}&#13;
+			else &#13;
+			{ &#13;
+				enableclick = 1 &#13;
+			}&#13;
+			if (messageduration[i] &lt;= 0)&#13;
+			{&#13;
+				showmessage[i] = 0&#13;
+				nextcheck = 0&#13;
+				enableclick = 1&#13;
+				message_enabled = 0&#13;
+			}&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+//Delete sounds no longer used (GameMaker Studio 1.x and GameMaker Studio 2.x)&#13;
+for (numb = 0; numb &lt; 9; numb += 1)&#13;
+{&#13;
+	if (audio_exists(Channel[numb]))&#13;
+	{&#13;
+		if (Channel[numb] != Channelb[numb])&#13;
+		{&#13;
+			if (!audio_is_playing(Channel[numb]))&#13;
+			{&#13;
+				audio_destroy_stream(Channel[numb])&#13;
+			}&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+//Resize Application Surface (GameMaker Studio 1.x and GameMaker Studio 2.x)&#13;
+/*if (window_has_focus() = 1)&#13;
+{&#13;
+	surface_resize(application_surface, window_get_width(), window_get_height())&#13;
+}*/</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="40" eventtype="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (debug_mode = 1)&#13;
+{&#13;
+	panoramaaspectratio += 0.01&#13;
+}</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="38" eventtype="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (debug_mode = 1)&#13;
+{&#13;
+	panoramaaspectratio += 0.01&#13;
+}&#13;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="27" eventtype="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>game_end()</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="3" eventtype="7">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Unload resources (GameMaker Studio 1.x and GameMaker Studio 2.x)&#13;
+if (sprite_exists(Transparent)) &#13;
+{ &#13;
+	sprite_delete(Transparent) &#13;
+}&#13;
+if (sprite_exists(transition)) &#13;
+{ &#13;
+	sprite_delete(transition) &#13;
+}&#13;
+if (file_exists(working_directory + "/transition.png"))&#13;
+{&#13;
+	file_delete(working_directory + "/transition.png")&#13;
+}&#13;
+for (numb = 0; numb &lt; 9; numb += 1)&#13;
+{&#13;
+	if (audio_is_playing(Channel[numb])) &#13;
+	{ &#13;
+		audio_stop_sound(Channel[numb]) &#13;
+	}&#13;
+	if (audio_exists(Channel[numb]) &amp;&amp; Channel[numb] != Channelb[numb])&#13;
+	{&#13;
+		audio_destroy_stream(Channel[numb])&#13;
+	}&#13;
+}&#13;
+d3d_end()</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="64" eventtype="8">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Draw Transition (GameMaker Studio 1.x and GameMaker Studio 2.x)&#13;
+display_set_gui_size(window_get_width(), window_get_height());&#13;
+if (transition_create = 1)&#13;
+{&#13;
+	transition = sprite_create_from_screen(0, 0, window_get_width(), window_get_height(), 0, 0, 0, 0)&#13;
+	generate_current_frame()&#13;
+	for (i = 0; i &lt; prevframe_maxhotspotcount; i += 1)&#13;
+	{&#13;
+		ini_open(working_directory + "/run.ini")&#13;
+		if (ini_key_exists(string(previousframe) + "-hotspot" + string(i), "panorama_horizontaldirection"))&#13;
+		{&#13;
+			direction = ini_read_real(string(previousframe) + "-hotspot" + string(i), "panorama_horizontaldirection", direction)&#13;
+		}&#13;
+		if (ini_key_exists(string(previousframe) + "-hotspot" + string(i), "panorama_verticaldirection"))&#13;
+		{&#13;
+			zdirection = ini_read_real(string(previousframe) + "-hotspot" + string(i), "panorama_verticaldirection", zdirection / MaximumVerticalAngle)&#13;
+		}&#13;
+		ini_close()&#13;
+	}&#13;
+	transition_create = 0&#13;
+}&#13;
+if (draw_transition = 1 &amp;&amp; ImageLoaded = 1)&#13;
+{&#13;
+	d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+	draw_sprite_stretched_ext(transition, 0, 0, 0, window_get_width(), window_get_height(), c_white, transition_alpha)&#13;
+}&#13;
+&#13;
+// draw handpoint cursor over transition&#13;
+if (draw_transition = 1)&#13;
+{&#13;
+	if (enablepanoramamode = 1)&#13;
+	{&#13;
+		d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+		draw_sprite(spr_cr_handpoint, 0, window_get_width() / 2, window_get_height() / 2)&#13;
+		if (debug_mode = 1 || debug_game = 1)&#13;
+		{&#13;
+			draw_set_halign(fa_center)&#13;
+			draw_set_valign(fa_middle)&#13;
+			draw_set_color(c_white)&#13;
+			draw_set_font(font)&#13;
+			draw_text((window_get_width() / 2), (window_get_height() / 2) + 32, "(" + string(mousex) + "," + string(mousey) + ")")&#13;
+		}&#13;
+	}&#13;
+	else &#13;
+	{&#13;
+		d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+		draw_sprite(spr_cr_handpoint, 0, window_mouse_get_x(), window_mouse_get_y())&#13;
+		if (debug_mode = 1 || debug_game = 1)&#13;
+		{&#13;
+			draw_set_halign(fa_center)&#13;
+			draw_set_valign(fa_middle)&#13;
+			draw_set_color(c_white)&#13;
+			draw_set_font(font)&#13;
+			draw_text(window_mouse_get_x(), window_mouse_get_y() + 32, "(" + string(mousex) + "," + string(mousey) + ")")&#13;
+		}&#13;
+	}&#13;
+}</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="0" eventtype="8">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Draw 2D picture frame&#13;
+if (enablepanoramamode = 0 &amp;&amp; ImageLoaded = 1 &amp;&amp; sprite_exists(Transparent))&#13;
+{&#13;
+	d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+	draw_sprite_stretched(Transparent, image_index, 0, 0, window_get_width(), window_get_height())&#13;
+}&#13;
+&#13;
+//Draw 3D projected panoramic frame&#13;
+if (enablepanoramamode = 1 &amp;&amp; ImageLoaded = 1)&#13;
+{&#13;
+	draw_set_color(c_white)&#13;
+	d3d_set_projection_ext(x, y, z,&#13;
+	x + cos(degtorad(direction)) * cos(degtorad(zdirection)),&#13;
+	y - sin(degtorad(direction)) * cos(degtorad(zdirection)),&#13;
+	z + sin(degtorad(zdirection)), 0, 0, 1, 60, 4 / 3, 0, 1024)&#13;
+	d3d_draw_cylinder(-100, -100, 350 / panoramaaspectratio, 100, 100,&#13;
+	-350 / panoramaaspectratio, tex[image_index], 1, 1, 0, 700)&#13;
+}&#13;
+&#13;
+// Draw messages&#13;
+if (draw_transition = 0 &amp;&amp; ImageLoaded = 1)&#13;
+{&#13;
+	if (nextcheck = 1)&#13;
+	{&#13;
+		for (i = 0; i &lt; frame_maxhotspotcount; i += 1)&#13;
+		{&#13;
+			if (showmessage[i] = 1)&#13;
+			{&#13;
+				d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+				draw_set_font(font)&#13;
+				draw_set_valign(fa_top)&#13;
+				draw_set_halign(fa_left)&#13;
+				draw_set_color(c_black)&#13;
+				draw_rectangle(0, window_get_height() - string_height(messagetext[i]), window_get_width(), window_get_height(), 0)&#13;
+				draw_set_valign(fa_top)&#13;
+				draw_set_halign(fa_center)&#13;
+				draw_set_color(c_white)&#13;
+				texture_set_interpolation(1)&#13;
+				draw_text(window_get_width() / 2, window_get_height() - string_height(messagetext[i]), messagetext[i])&#13;
+				texture_set_interpolation(0)&#13;
+			}&#13;
+		}&#13;
+	}&#13;
+}&#13;
+&#13;
+//Draw Cursor&#13;
+if (draw_transition = 0 &amp;&amp; ImageLoaded = 1)&#13;
+{&#13;
+	if (enablepanoramamode = 1)&#13;
+	{&#13;
+		if (mouse_is_locked() = 1)&#13;
+		{&#13;
+			d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+			if (over_hotspot = 1)&#13;
+			{&#13;
+				draw_sprite(spr_cr_handpoint, 0, window_get_width() / 2, window_get_height() / 2)&#13;
+			}&#13;
+			draw_set_blend_mode(bm_zero)&#13;
+			if (over_hotspot = 0)&#13;
+			{&#13;
+				draw_sprite(spr_cr_cross, 0, window_get_width() / 2, window_get_height() / 2)&#13;
+			}&#13;
+			draw_set_blend_mode(bm_normal)&#13;
+			if (debug_mode = 1 || debug_game = 1)&#13;
+			{&#13;
+				draw_set_halign(fa_center)&#13;
+				draw_set_valign(fa_middle)&#13;
+				draw_set_color(c_white)&#13;
+				draw_set_font(font)&#13;
+				draw_text(window_get_width() / 2, window_get_height() / 2 + 32, "(" + string(mousex) + "," + string(mousey) + ")")&#13;
+			}&#13;
+		}&#13;
+	}&#13;
+	else &#13;
+	{&#13;
+		d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+		if (over_hotspot = 1)&#13;
+		{&#13;
+			draw_sprite(spr_cr_handpoint, 0, window_mouse_get_x(), window_mouse_get_y())&#13;
+		}&#13;
+		draw_set_blend_mode(bm_zero)&#13;
+		if (over_hotspot = 0)&#13;
+		{&#13;
+			draw_sprite(spr_cr_cross, 0, window_mouse_get_x(), window_mouse_get_y())&#13;
+		}&#13;
+		draw_set_blend_mode(bm_normal)&#13;
+		if (debug_mode = 1 || debug_game = 1)&#13;
+		{&#13;
+			draw_set_halign(fa_center)&#13;
+			draw_set_valign(fa_middle)&#13;
+			draw_set_color(c_white)&#13;
+			draw_set_font(font)&#13;
+			draw_text(window_mouse_get_x(), window_mouse_get_y() + 32, "(" + string(mousex) + "," + string(mousey) + ")")&#13;
+		}&#13;
+	}&#13;
+}</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+  </events>
+  <PhysicsObject>0</PhysicsObject>
+  <PhysicsObjectSensor>0</PhysicsObjectSensor>
+  <PhysicsObjectShape>0</PhysicsObjectShape>
+  <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
+  <PhysicsObjectRestitution>0.1</PhysicsObjectRestitution>
+  <PhysicsObjectGroup>0</PhysicsObjectGroup>
+  <PhysicsObjectLinearDamping>0.1</PhysicsObjectLinearDamping>
+  <PhysicsObjectAngularDamping>0.1</PhysicsObjectAngularDamping>
+  <PhysicsObjectFriction>0.2</PhysicsObjectFriction>
+  <PhysicsObjectAwake>-1</PhysicsObjectAwake>
+  <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
+  <PhysicsShapePoints/>
+</object>

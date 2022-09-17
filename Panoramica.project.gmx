@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<assets>
+  <Configs name="configs">
+    <Config>Configs\Default</Config>
+  </Configs>
+  <sprites name="sprites">
+    <sprite>sprites\spr_cr_cross</sprite>
+    <sprite>sprites\spr_cr_handpoint</sprite>
+  </sprites>
+  <scripts name="scripts">
+    <script>scripts\generate_current_frame.gml</script>
+    <script>scripts\calculate_direction.gml</script>
+    <scripts name="PointerLock">
+      <script>scripts\mouse_lock.gml</script>
+      <script>scripts\mouse_unlock.gml</script>
+      <script>scripts\mouse_get_delta_x.gml</script>
+      <script>scripts\mouse_get_delta_y.gml</script>
+      <script>scripts\mouse_is_locked.gml</script>
+      <script>scripts\mouse_lock_update.gml</script>
+      <script>scripts\mouse_lock_init.gml</script>
+    </scripts>
+  </scripts>
+  <fonts name="fonts">
+    <font>fonts\font</font>
+  </fonts>
+  <objects name="objects">
+    <object>objects\execute_code</object>
+  </objects>
+  <rooms name="rooms">
+    <room>rooms\execute_game</room>
+  </rooms>
+  <constants number="0"/>
+  <help>
+    <rtf>help.rtf</rtf>
+  </help>
+</assets>
