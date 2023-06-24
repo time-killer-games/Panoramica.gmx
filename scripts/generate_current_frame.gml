@@ -150,7 +150,10 @@
 		sprite_index = Transparent
 		for (subimg = 0; subimg <= frame_background_imgnumb; subimg += 1)
 		{
-			tex[subimg] = sprite_get_texture(Transparent, subimg)
+			if (sprite_exists(Transparent)) 
+			{
+				tex[subimg] = sprite_get_texture(Transparent, subimg)
+			}
 		}
 	}
 	ini_close()

@@ -6,7 +6,7 @@
     <option_shortcircuit>true</option_shortcircuit>
     <option_use_fast_collision>false</option_use_fast_collision>
     <option_fast_collision_compatibility>false</option_fast_collision_compatibility>
-    <option_fullscreen>false</option_fullscreen>
+    <option_fullscreen>true</option_fullscreen>
     <option_sizeable>false</option_sizeable>
     <option_stayontop>true</option_stayontop>
     <option_aborterrors>false</option_aborterrors>
@@ -26,7 +26,7 @@
     <option_interpolate>false</option_interpolate>
     <option_scale>0</option_scale>
     <option_closeesc>true</option_closeesc>
-    <option_lastchanged>44821.736469814816</option_lastchanged>
+    <option_lastchanged>45101.34276620371</option_lastchanged>
     <option_gameid>462637073</option_gameid>
     <option_gameguid>{7F68B3EB-A89-4957-A90D-DF561069683D}</option_gameguid>
     <option_author>Samuel Venable</option_author>
