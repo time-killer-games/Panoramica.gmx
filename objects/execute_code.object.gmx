@@ -81,11 +81,12 @@ startframe = ini_read_string("gamesettings", "startframe", "")&#13;
 debug_game = ini_read_real("gamesettings", "debug_game", 0)&#13;
 windowwidth = ini_read_real("gamesettings", "windowwidth", display_get_width())&#13;
 windowheight = ini_read_real("gamesettings", "windowheight", display_get_height())&#13;
-splashvideo = ini_read_string("gamesettings", "splashvideo", "")&#13;
+usemessagepopups = ini_read_real("gamesettings", "usemessagepopups", 0)&#13;
 fullscreen = ini_read_real("gamesettings", "fullscreen", 0)&#13;
 initwindow = !fullscreen&#13;
 panoramaaspectratio = ini_read_real("gamesettings", "panorama_aspectratio", 1)&#13;
 maxglobalindex = 0&#13;
+draw_cursor = 1&#13;
 while (ini_key_exists("gamesettings", "global_variable" + string(maxglobalindex)))&#13;
 {&#13;
 	global_variable[maxglobalindex] = ini_read_string("gamesettings", "global_variable" + string(maxglobalindex), "")&#13;
@@ -95,7 +96,6 @@ currentframe = startframe&#13;
 previousframe = currentframe&#13;
 ini_close()&#13;
 window_set_caption(gametitle)&#13;
-window_set_fullscreen(fullscreen)&#13;
 if (fullscreen = 0)&#13;
 {&#13;
 	window_set_rectangle((display_get_width() / 2) - (windowwidth / 2), (display_get_height() / 2) - (windowheight / 2), windowwidth, windowheight)&#13;
@@ -116,7 +116,69 @@ for (i = 0; i &lt; 32000; i += 1)&#13;
 	{&#13;
 		variable_set_value[i, varindex] = 0&#13;
 	}&#13;
+}&#13;
+alarm[1] = 2;</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="1" eventtype="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>window_set_fullscreen(fullscreen)&#13;
+if (fullscreen)&#13;
+{&#13;
+	window_set_stayontop(true)&#13;
 }</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event enumb="0" eventtype="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <useapplyto>-1</useapplyto>
+        <isquestion>0</isquestion>
+        <exetype>2</exetype>
+        <functionname/>
+        <codestring/>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>window_set_cursor(cr_default)&#13;
+if (enablepanoramamode = 1)&#13;
+{&#13;
+	mouse_unlock()&#13;
+}&#13;
+draw_cursor = 0&#13;
+show_message(messageindex)&#13;
+if (enablepanoramamode = 1)&#13;
+{&#13;
+	mouse_lock()&#13;
+}&#13;
+window_set_cursor(cr_none)&#13;
+draw_cursor = 1&#13;
+nextcheck = 0</string>
           </argument>
         </arguments>
       </action>
@@ -735,25 +797,36 @@ if (draw_transition = 0 &amp;&amp; ImageLoaded = 1)&#13;
 		{&#13;
 			if (showmessage[i] = 1)&#13;
 			{&#13;
-				d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
-				draw_set_font(font)&#13;
-				draw_set_valign(fa_top)&#13;
-				draw_set_halign(fa_left)&#13;
-				draw_set_color(c_black)&#13;
-				draw_rectangle(0, window_get_height() - string_height(messagetext[i]), window_get_width(), window_get_height(), 0)&#13;
-				draw_set_valign(fa_top)&#13;
-				draw_set_halign(fa_center)&#13;
-				draw_set_color(c_white)&#13;
-				texture_set_interpolation(1)&#13;
-				draw_text(window_get_width() / 2, window_get_height() - string_height(messagetext[i]), messagetext[i])&#13;
-				texture_set_interpolation(0)&#13;
+				if (usemessagepopups = 0)&#13;
+				{&#13;
+					d3d_set_projection_ortho(0, 0, window_get_width(), window_get_height(), 0)&#13;
+					draw_set_font(font)&#13;
+					draw_set_valign(fa_top)&#13;
+					draw_set_halign(fa_left)&#13;
+					draw_set_color(c_black)&#13;
+					draw_rectangle(0, window_get_height() - string_height(messagetext[i]), window_get_width(), window_get_height(), 0)&#13;
+					draw_set_valign(fa_top)&#13;
+					draw_set_halign(fa_center)&#13;
+					draw_set_color(c_white)&#13;
+					texture_set_interpolation(1)&#13;
+					draw_text(window_get_width() / 2, window_get_height() - string_height(messagetext[i]), messagetext[i])&#13;
+					texture_set_interpolation(0)&#13;
+				}&#13;
+				else&#13;
+				{&#13;
+					alarm[0] = 2&#13;
+					messageindex = messagetext[i]&#13;
+					showmessage[i] = 0&#13;
+					draw_cursor = 0&#13;
+					nextcheck = 2&#13;
+				}&#13;
 			}&#13;
 		}&#13;
 	}&#13;
 }&#13;
 &#13;
 //Draw Cursor&#13;
-if (draw_transition = 0 &amp;&amp; ImageLoaded = 1)&#13;
+if (draw_cursor = 1 &amp;&amp; draw_transition = 0 &amp;&amp; ImageLoaded = 1)&#13;
 {&#13;
 	if (enablepanoramamode = 1)&#13;
 	{&#13;
