@@ -25,7 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_start()&#13;
+            <string>
+environment_set_variable("IMGUI_FONT_PATH", "")&#13;
+environment_set_variable("IMGUI_FONT_FILES", "fonts/font.ttf")&#13;
+d3d_start()&#13;
 Transparent = -1&#13;
 Channelb[0] = -1&#13;
 Channelb[1] = -1&#13;
