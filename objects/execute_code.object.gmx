@@ -176,7 +176,7 @@ draw_cursor = 0&#13;
 show_message(messageindex)&#13;
 if (window_get_cursor() == cr_default)&#13;
 {&#13;
-  window_set_cursor(cr_none)&#13;
+	window_set_cursor(cr_none)&#13;
 }&#13;
 draw_cursor = 1&#13;
 nextcheck = 0</string>
